@@ -25,19 +25,20 @@ public class Cat {
         this.health = rnd.nextInt(20, 81);
         this.interactionState = Interaction.NOT_INTERACTED;
         updateAverageState();
-        setAgeStrategy();
     }
 
     public Cat(String name) {
         this();
         this.name = name;
         this.age = new Random().nextInt(1, 19);
+        setAgeStrategy();
     }
 
     public Cat(String name, int age) {
         this();
         this.name = name;
         this.age = age;
+        setAgeStrategy();
     }
 
     public Interaction getInteractionState() {
@@ -136,7 +137,7 @@ public class Cat {
         interactionState.goToVet(this);
     }
 
-    private void setAgeStrategy() {
+    public void setAgeStrategy() {
         if (this.age >= 1 && this.age <= 5)
             this.ageStrategy = new YoungCat();
         else if (this.age >= 6 && this.age <= 10)

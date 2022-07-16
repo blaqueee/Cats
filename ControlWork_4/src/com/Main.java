@@ -13,7 +13,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         List<Cat> cats = new FileReaderWriter("cats.json").readFile();
-        cats.forEach(Cat::updateAverageState);
+        cats.forEach(cat -> {
+                    cat.updateAverageState();
+                    cat.setAgeStrategy();
+                    cat.setInitialState();
+                });
         cats.sort(Collections.reverseOrder(comparingInt(Cat::getAverageState)));
 
         int days = 1;

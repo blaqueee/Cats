@@ -42,17 +42,17 @@ public enum Interaction {
                 return;
             }
             cat.getAgeStrategy().play(cat);
-            cat.setName("* " + cat.getName());
             cat.setInteractionState(INTERACTED);
-            System.out.printf("\nYou fed cat %s, %s years old!%n\n", cat.getName(), cat.getAge());
+            System.out.printf("\nYou played with cat %s, %s years old!%n\n", cat.getName(), cat.getAge());
+            cat.setName("* " + cat.getName());
         }
 
         @Override
         public void goToVet(Cat cat) {
             cat.getAgeStrategy().goToVet(cat);
-            cat.setName("* " + cat.getName());
             cat.setInteractionState(INTERACTED);
             System.out.printf("\nYou went to vet with the cat %s, %s years old!%n\n", cat.getName(), cat.getAge());
+            cat.setName("* " + cat.getName());
         }
     };
     public abstract void feed(Cat cat);
