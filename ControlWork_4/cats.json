@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Jasper",
+    "age": 12,
+    "satiety": 63,
+    "mood": 54,
+    "health": 43
+  },
+  {
+    "name": "Kitty",
+    "age": 5,
+    "satiety": 38,
+    "mood": 56,
+    "health": 37
+  },
+  {
+    "name": "Musya",
+    "age": 12,
+    "satiety": 53,
+    "mood": 84,
+    "health": 43
+  },
+  {
+    "name": "Peach",
+    "age": 5,
+    "satiety": 85,
+    "mood": 66,
+    "health": 64
+  }
+]
