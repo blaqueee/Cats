@@ -1,30 +1,30 @@
 [
   {
+    "name": "Peach",
+    "age": 5,
+    "satiety": 88,
+    "mood": 83,
+    "health": 67
+  },
+  {
     "name": "Jasper",
     "age": 12,
-    "satiety": 63,
-    "mood": 54,
-    "health": 43
+    "satiety": 55,
+    "mood": 61,
+    "health": 33
   },
   {
     "name": "Kitty",
     "age": 5,
-    "satiety": 38,
-    "mood": 56,
-    "health": 37
+    "satiety": 35,
+    "mood": 80,
+    "health": 35
   },
   {
     "name": "Musya",
     "age": 12,
-    "satiety": 53,
-    "mood": 84,
-    "health": 43
-  },
-  {
-    "name": "Peach",
-    "age": 5,
-    "satiety": 85,
-    "mood": 66,
-    "health": 64
+    "satiety": 25,
+    "mood": 96,
+    "health": 42
   }
 ]

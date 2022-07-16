@@ -9,17 +9,17 @@ public enum Interaction {
     INTERACTED {
         @Override
         public void feed(Cat cat) {
-            System.out.printf("\nYou have already INTERACTED with cat %s TODAY!%n\n", cat.getName());
+            System.out.printf("\nYou have already INTERACTED with cat %s TODAY!%n\n", cat.getName().replace("* ", ""));
         }
 
         @Override
         public void play(Cat cat) {
-            System.out.printf("\nYou have already INTERACTED with cat %s TODAY!%n\n", cat.getName());
+            System.out.printf("\nYou have already INTERACTED with cat %s TODAY!%n\n", cat.getName().replace("* ", ""));
         }
 
         @Override
         public void goToVet(Cat cat) {
-            System.out.printf("\nYou have already INTERACTED with cat %s TODAY!%n\n", cat.getName());
+            System.out.printf("\nYou have already INTERACTED with cat %s TODAY!%n\n", cat.getName().replace("* ", ""));
         }
     },
     NOT_INTERACTED {
@@ -32,6 +32,7 @@ public enum Interaction {
             cat.getAgeStrategy().feed(cat);
             cat.setInteractionState(INTERACTED);
             System.out.printf("\nYou fed cat %s, %s years old!%n\n", cat.getName(), cat.getAge());
+            cat.setName("* " + cat.getName());
         }
 
         @Override
@@ -41,6 +42,7 @@ public enum Interaction {
                 return;
             }
             cat.getAgeStrategy().play(cat);
+            cat.setName("* " + cat.getName());
             cat.setInteractionState(INTERACTED);
             System.out.printf("\nYou fed cat %s, %s years old!%n\n", cat.getName(), cat.getAge());
         }
@@ -48,6 +50,7 @@ public enum Interaction {
         @Override
         public void goToVet(Cat cat) {
             cat.getAgeStrategy().goToVet(cat);
+            cat.setName("* " + cat.getName());
             cat.setInteractionState(INTERACTED);
             System.out.printf("\nYou went to vet with the cat %s, %s years old!%n\n", cat.getName(), cat.getAge());
         }

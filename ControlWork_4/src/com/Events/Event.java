@@ -17,6 +17,7 @@ public enum Event {
             System.out.printf("Cat %s got POISONING while eating!%n" +
                     "Mood: -%s points%n" +
                     "Health: -%s points%n\n", cat.getName(), stepDown, stepDown);
+            cat.setName("* " + cat.getName());
         }
     },
     TRAUMA {
@@ -32,6 +33,7 @@ public enum Event {
             System.out.printf("Cat %s got BROKEN LEG while playing!%n" +
                     "Mood: -%s points%n" +
                     "Health: -%s points%n\n", cat.getName(), stepDown, stepDown);
+            cat.setName("* " + cat.getName());
         }
     };
 

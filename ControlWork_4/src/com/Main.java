@@ -14,10 +14,11 @@ public class Main {
     public static void main(String[] args) {
         List<Cat> cats = new FileReaderWriter("cats.json").readFile();
         cats.forEach(Cat::updateAverageState);
+        cats.sort(Collections.reverseOrder(comparingInt(Cat::getAverageState)));
 
-        cats = sortCat(cats);
         int days = 1;
         while (true) {
+            removeMarksOnCats(cats);
             System.out.printf("\n                            <=== DAY %d ===>%n", days);
             cats = doAction(cats);
             days++;
@@ -30,9 +31,15 @@ public class Main {
     }
 
     private static List<Cat> doAction(List<Cat> cats) {
+        Sortable Sorter = (catList -> {
+            return catList.stream()
+                    .sorted(Collections.reverseOrder(comparingInt(Cat::getAverageState)))
+                    .collect(toList());
+
+        });
+
         while (true) {
             new FileReaderWriter("cats.json").writeFile(cats);
-
             removeDeadCats(cats);
             if (cats.size() == 0) {
                 return cats;
@@ -59,9 +66,10 @@ public class Main {
                 case 5:
                     return cats;
                 case 6:
-                    cats = sortCat(cats);
+                    Sorter = sortCat();
                     break;
             }
+            cats = Sorter.sort(cats);
         }
     }
 
@@ -179,11 +187,11 @@ public class Main {
     }
 
     private static void printCats(List<Cat> cats) {
-        System.out.println("+-----+----------+----------+----------+----------+----------+----------+\n" +
-                "|  #  |   NAME   |   AGE    |  HEALTH  |   MOOD   | SATIETY  | AVERAGE  |\n" +
-                "+-----+----------+----------+----------+----------+----------+----------+");
+        System.out.println("+-----+---------------+----------+----------+----------+----------+----------+\n" +
+                "|  #  |   NAME        |   AGE    |  HEALTH  |   MOOD   | SATIETY  | AVERAGE  |\n" +
+                "+-----+---------------+----------+----------+----------+----------+----------+");
         for (int i = 0; i < cats.size(); i++) {
-            System.out.printf("|  %-2d | %-8s |    %-5d |    %-5d |    %-5d |    %-5d |    %-5d |%n",
+            System.out.printf("|  %-2d | %-13s |    %-5d |    %-5d |    %-5d |    %-5d |    %-5d |%n",
                     i + 1,
                     cats.get(i).getName(),
                     cats.get(i).getAge(),
@@ -192,35 +200,59 @@ public class Main {
                     cats.get(i).getSatiety(),
                     cats.get(i).getAverageState());
         }
-        System.out.println("+-----+----------+----------+----------+----------+----------+----------+");
+        System.out.println("+-----+---------------+----------+----------+----------+----------+----------+");
     }
 
-    private static List<Cat> sortCat(List<Cat> cats) {
+    private static Sortable sortCat() {
         switch (askSortType()) {
             case 1:
-                return cats.stream()
-                        .sorted(comparing(Cat::getName))
-                        .collect(toList());
+                Sortable Sorter = (catList -> {
+                    return catList.stream()
+                            .sorted(comparing(Cat::getName))
+                            .collect(toList());
+
+                });
+                return Sorter;
             case 2:
-                return cats.stream()
-                        .sorted(Collections.reverseOrder(comparingInt(Cat::getAge)))
-                        .collect(toList());
+                Sorter = (catList -> {
+                    return catList.stream()
+                            .sorted(Collections.reverseOrder(comparingInt(Cat::getAge)))
+                            .collect(toList());
+
+                });
+                return Sorter;
             case 3:
-                return cats.stream()
-                        .sorted(Collections.reverseOrder(comparingInt(Cat::getHealth)))
-                        .collect(toList());
+                Sorter = (catList -> {
+                    return catList.stream()
+                            .sorted(Collections.reverseOrder(comparingInt(Cat::getHealth)))
+                            .collect(toList());
+
+                });
+                return Sorter;
             case 4:
-                return cats.stream()
-                        .sorted(Collections.reverseOrder(comparingInt(Cat::getMood)))
-                        .collect(toList());
+                Sorter = (catList -> {
+                    return catList.stream()
+                            .sorted(Collections.reverseOrder(comparingInt(Cat::getMood)))
+                            .collect(toList());
+
+                });
+                return Sorter;
             case 5:
-                return cats.stream()
-                        .sorted(Collections.reverseOrder(comparingInt(Cat::getSatiety)))
-                        .collect(toList());
+                Sorter = (catList -> {
+                    return catList.stream()
+                            .sorted(Collections.reverseOrder(comparingInt(Cat::getSatiety)))
+                            .collect(toList());
+
+                });
+                return Sorter;
             default:
-                return cats.stream()
-                        .sorted(Collections.reverseOrder(comparingInt(Cat::getAverageState)))
-                        .collect(toList());
+                Sorter = (catList -> {
+                    return catList.stream()
+                            .sorted(Collections.reverseOrder(comparingInt(Cat::getAverageState)))
+                            .collect(toList());
+
+                });
+                return Sorter;
         }
     }
 
@@ -256,5 +288,9 @@ public class Main {
         if (choice < 1 || choice > 6)
             throw new IllegalArgumentException("\nCan't find this type of sort!\n");
         return choice;
+    }
+
+    private static void removeMarksOnCats(List<Cat> cats) {
+        cats.forEach(cat -> cat.setName(cat.getName().replace("* ", "")));
     }
 }
